@@ -1,0 +1,39 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--c-bg);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.main-area {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  transition: margin-left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-x: hidden;
+
+  &.expanded {
+    margin-left: 64px;
+  }
+}
+
+.page-content {
+  padding: 1.5rem;
+  flex: 1;
+  margin-top: var(--nav-h);
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .main-area {
+    margin-left: 0 !important;
+  }
+  
+  .page-content {
+    padding: 1rem;
+  }
+}

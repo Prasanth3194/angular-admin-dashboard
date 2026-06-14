@@ -1,0 +1,89 @@
+<div class="page-header">
+  <h1>Settings</h1>
+  <p>Manage your preferences and account configuration.</p>
+</div>
+
+<div class="settings-grid">
+
+  <!-- Profile -->
+  <div class="settings-card">
+    <h3 class="section-title">Profile Information</h3>
+    <div class="avatar-row">
+      <div class="big-avatar">PB</div>
+      <div>
+        <button class="btn-outline">Change Photo</button>
+        <p class="hint">JPG, GIF or PNG. Max 1MB.</p>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" [(ngModel)]="profile.firstName" />
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" [(ngModel)]="profile.lastName" />
+      </div>
+      <div class="form-group full">
+        <label>Email Address</label>
+        <input type="email" [(ngModel)]="profile.email" />
+      </div>
+      <div class="form-group full">
+        <label>Role</label>
+        <input type="text" [(ngModel)]="profile.role" />
+      </div>
+    </div>
+    <button class="btn-primary" (click)="saveProfile()">Save Changes</button>
+    @if (saved) {
+      <div class="success-msg">✅ Profile updated successfully!</div>
+    }
+  </div>
+
+  <!-- Appearance -->
+  <div class="settings-card">
+    <h3 class="section-title">Appearance</h3>
+    <div class="toggle-row">
+      <div>
+        <strong>Dark Mode</strong>
+        <p>Switch between dark and light interface theme.</p>
+      </div>
+      <mat-slide-toggle
+        [checked]="theme.isDark()"
+        (change)="theme.toggleTheme()">
+      </mat-slide-toggle>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="settings-card">
+    <h3 class="section-title">Notifications</h3>
+    @for (n of notifications; track n.label) {
+      <div class="toggle-row">
+        <div>
+          <strong>{{ n.label }}</strong>
+          <p>{{ n.desc }}</p>
+        </div>
+        <mat-slide-toggle [(ngModel)]="n.enabled"></mat-slide-toggle>
+      </div>
+    }
+  </div>
+
+  <!-- Security -->
+  <div class="settings-card">
+    <h3 class="section-title">Security</h3>
+    <div class="form-group full">
+      <label>Current Password</label>
+      <input type="password" placeholder="••••••••" />
+    </div>
+    <div class="form-group full">
+      <label>New Password</label>
+      <input type="password" placeholder="••••••••" />
+    </div>
+    <div class="form-group full">
+      <label>Confirm New Password</label>
+      <input type="password" placeholder="••••••••" />
+    </div>
+    <button class="btn-primary">Update Password</button>
+  </div>
+
+</div>

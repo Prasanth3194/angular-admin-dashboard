@@ -1,0 +1,57 @@
+<header class="navbar" [class.sidebar-collapsed]="collapsed">
+  <button class="icon-btn" (click)="toggleSidebar.emit()">
+    <span class="material-icons">menu</span>
+  </button>
+
+  <div class="navbar__search">
+    <span class="material-icons">search</span>
+    <input type="text" placeholder="Search..." />
+  </div>
+
+  <div class="navbar__actions">
+
+    <!-- Theme Toggle -->
+    <button class="icon-btn" (click)="toggleTheme.emit()" title="Toggle theme">
+      <span class="material-icons">
+        {{ theme.isDark() ? 'light_mode' : 'dark_mode' }}
+      </span>
+    </button>
+
+    <!-- Notifications -->
+    <button class="icon-btn notif-btn" [matMenuTriggerFor]="notifMenu">
+      <span class="material-icons">notifications</span>
+      <span class="badge">{{ notifications.length }}</span>
+    </button>
+
+    <mat-menu #notifMenu="matMenu">
+      <div class="notif-header" (click)="$event.stopPropagation()">Notifications</div>
+      @for (n of notifications; track n.title) {
+        <div class="notif-item" (click)="$event.stopPropagation()">
+          <span class="material-icons notif-icon">{{ n.icon }}</span>
+          <div>
+            <strong>{{ n.title }}</strong>
+            <p>{{ n.msg }}</p>
+            <small>{{ n.time }}</small>
+          </div>
+        </div>
+      }
+    </mat-menu>
+
+    <!-- Profile -->
+    <div class="navbar__avatar" [matMenuTriggerFor]="profileMenu">PB</div>
+
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>person</mat-icon> Profile
+      </button>
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon> Settings
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon>logout</mat-icon> Logout
+      </button>
+    </mat-menu>
+
+  </div>
+</header>

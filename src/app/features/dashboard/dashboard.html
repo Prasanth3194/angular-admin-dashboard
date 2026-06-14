@@ -1,0 +1,110 @@
+<div class="page-header">
+  <div>
+    <h1>Dashboard</h1>
+    <p>Welcome back, Prasanth 👋 Here's what's happening today.</p>
+  </div>
+  <span class="date-badge">{{ today | date:'mediumDate' }}</span>
+</div>
+
+<!-- KPI Cards -->
+<div class="stats-grid">
+  @for (s of stats; track s.label) {
+    <app-stat-card
+      [label]="s.label"
+      [value]="s.value"
+      [change]="s.change"
+      [icon]="s.icon"
+      [iconBg]="s.color"
+      [isUp]="s.up">
+    </app-stat-card>
+  }
+</div>
+
+<!-- Charts Row -->
+<div class="charts-row">
+
+  <div class="chart-card wide">
+    <div class="chart-card__header">
+      <h3>Revenue Overview</h3>
+      <span class="chip">Last 7 months</span>
+    </div>
+    <canvas baseChart
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      type="line">
+    </canvas>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-card__header">
+      <h3>Orders by Category</h3>
+      <span class="chip">This month</span>
+    </div>
+    <canvas baseChart
+      [data]="doughnutData"
+      [options]="doughnutOptions"
+      type="doughnut">
+    </canvas>
+    <div class="doughnut-legend">
+      @for (l of doughnutLabels; track l; let i = $index) {
+        <span class="legend-item">
+          <i [style.background]="doughnutColors[i]"></i>{{ l }}
+        </span>
+      }
+    </div>
+  </div>
+
+</div>
+
+<!-- Recent Users Table -->
+<div class="table-card">
+  <div class="chart-card__header">
+    <h3>Recent Users</h3>
+    <a routerLink="/users" class="view-all">View all →</a>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-center">
+      <mat-spinner diameter="36"></mat-spinner>
+    </div>
+  } @else {
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="recentUsers">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let u">
+            <div class="user-cell">
+              <div class="mini-avatar" [style.background]="getColor(u.id)">
+                {{ u.name.charAt(0) }}
+              </div>
+              {{ u.name }}
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let u">{{ u.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef>Company</th>
+          <td mat-cell *matCellDef="let u">{{ u.company.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let u">
+            <span class="status-badge" [class]="getStatus(u.id) === 'Active' ? 'active' : 'inactive'">
+              {{ getStatus(u.id) }}
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  }
+</div>

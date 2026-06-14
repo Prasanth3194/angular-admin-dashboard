@@ -1,0 +1,120 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--c-surface);
+  border-right: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 60;
+  transition: width 0.3s ease;
+  overflow: hidden;
+
+  &.collapsed { width: 64px; }
+}
+
+.sidebar__logo {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.1rem;
+  border-bottom: 1px solid var(--c-border);
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+  color: var(--c-accent);
+}
+
+.logo-icon { font-size: 22px; flex-shrink: 0; }
+
+.sidebar__nav {
+  flex: 1;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  color: var(--c-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s;
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(56,189,248,0.08);
+    color: var(--c-text);
+  }
+
+  &.active {
+    background: rgba(56,189,248,0.15);
+    color: var(--c-accent);
+  }
+
+  .material-icons { font-size: 20px; flex-shrink: 0; }
+}
+
+.sidebar__footer {
+  padding: 1rem;
+  border-top: 1px solid var(--c-border);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.user-info {
+  strong { display: block; font-size: 0.8rem; }
+  small { color: var(--c-muted); font-size: 0.72rem; }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 55;
+  
+  @media (min-width: 769px) {
+    display: none;
+  }
+}

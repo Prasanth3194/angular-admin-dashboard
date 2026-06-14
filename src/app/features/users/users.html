@@ -1,0 +1,103 @@
+<div class="page-header">
+  <div>
+    <h1>Users</h1>
+    <p>Manage and view all platform users.</p>
+  </div>
+  <button class="add-btn">
+    <span class="material-icons">add</span> Add User
+  </button>
+</div>
+
+<div class="table-card">
+
+  <!-- Toolbar -->
+  <div class="table-toolbar">
+    <div class="search-box">
+      <span class="material-icons">search</span>
+      <input
+        type="text"
+        placeholder="Search by name, email, company..."
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="applyFilter($event)" />
+    </div>
+    @if (!loading()) {
+      <span class="result-count">{{ dataSource.filteredData.length }} users</span>
+    }
+  </div>
+
+  @if (loading()) {
+    <div class="loading-center">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  } @else {
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+          <td mat-cell *matCellDef="let u">{{ u.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td mat-cell *matCellDef="let u">
+            <div class="user-cell">
+              <div class="avatar" [style.background]="getColor(u.id)">{{ u.name.charAt(0) }}</div>
+              <div>
+                <strong>{{ u.name }}</strong>
+                <small>&#64;{{ u.username }}</small>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <td mat-cell *matCellDef="let u">{{ u.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Company</th>
+          <td mat-cell *matCellDef="let u">{{ u.company.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef>City</th>
+          <td mat-cell *matCellDef="let u">{{ u.address.city }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let u">
+            <span class="badge"
+              [class.active]="getStatus(u.id) === 'Active'"
+              [class.inactive]="getStatus(u.id) === 'Inactive'"
+              [class.pending]="getStatus(u.id) === 'Pending'">
+              {{ getStatus(u.id) }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let u">
+            <div class="actions">
+              <button class="action-btn edit" title="Edit">
+                <span class="material-icons">edit</span>
+              </button>
+              <button class="action-btn delete" title="Delete">
+                <span class="material-icons">delete</span>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+    </div>
+  }
+
+</div>

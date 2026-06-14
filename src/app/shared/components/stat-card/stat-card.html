@@ -1,0 +1,13 @@
+<div class="stat-card">
+  <div class="stat-card__icon" [style.background]="iconBg">
+    <span class="material-icons">{{ icon }}</span>
+  </div>
+  <div class="stat-card__body">
+    <p class="stat-card__label">{{ label }}</p>
+    <h3 class="stat-card__value">{{ value }}</h3>
+    <span class="stat-card__change" [class.up]="isUp" [class.down]="!isUp">
+      <span class="material-icons">{{ isUp ? 'trending_up' : 'trending_down' }}</span>
+      {{ change }} vs last month
+    </span>
+  </div>
+</div>

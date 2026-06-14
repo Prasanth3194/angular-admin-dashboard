@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --c-bg:       #0f1117;
+  --c-surface:  #1a1d27;
+  --c-border:   #2a2d3e;
+  --c-accent:   #38BDF8;
+  --c-accent2:  #43d9ad;
+  --c-danger:   #ff6584;
+  --c-warn:     #febc2e;
+  --c-text:     #e8e8f0;
+  --c-muted:    #8888a8;
+  --c-white:    #ffffff;
+  --sidebar-w:  240px;
+  --nav-h:      64px;
+}
+
+body.light-theme {
+  --c-bg:      #f4f5f7;
+  --c-surface: #ffffff;
+  --c-border:  #e0e0e0;
+  --c-text:    #1a1d27;
+  --c-muted:   #666680;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--c-bg); }
+::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 3px; }
+
+/* Angular Material overrides */
+.mat-mdc-table        { background: var(--c-surface) !important; color: var(--c-text) !important; }
+.mat-mdc-header-row   { background: var(--c-surface) !important; }
+.mat-mdc-row:hover    { background: rgba(56,189,248,0.05) !important; }
+.mat-mdc-header-cell,
+.mat-mdc-cell         { color: var(--c-text) !important; border-color: var(--c-border) !important; }
+.mat-mdc-paginator    { background: var(--c-surface) !important; color: var(--c-text) !important; }
+.mat-mdc-paginator-icon { fill: var(--c-muted) !important; }
+.mat-mdc-select-value { color: var(--c-text) !important; }
+.mat-mdc-menu-panel   { background: var(--c-surface) !important; border: 1px solid var(--c-border) !important; }
+.mat-mdc-menu-item    { color: var(--c-text) !important; }
+.mat-mdc-menu-item:hover { background: rgba(56,189,248,0.08) !important; }

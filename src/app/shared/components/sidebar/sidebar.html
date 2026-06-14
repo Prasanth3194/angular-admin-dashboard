@@ -1,0 +1,42 @@
+<aside class="sidebar" [class.collapsed]="collapsed" [class.mobile-open]="mobileOpen">
+
+  <div class="sidebar__logo">
+    <span class="material-icons logo-icon">dashboard_customize</span>
+    @if (!collapsed) {
+      <span class="logo-text">AdminPro</span>
+    }
+  </div>
+
+  <nav class="sidebar__nav">
+    @for (item of navItems; track item.route) {
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        class="nav-item"
+        [title]="collapsed ? item.label : ''"
+        (click)="backdropClick.emit()">
+        <span class="material-icons">{{ item.icon }}</span>
+        @if (!collapsed) {
+          <span class="nav-label">{{ item.label }}</span>
+        }
+      </a>
+    }
+  </nav>
+
+  @if (!collapsed) {
+    <div class="sidebar__footer">
+      <div class="user-info">
+        <div class="user-avatar">PB</div>
+        <div>
+          <strong>Prasanth Balakrishnan</strong>
+          <small>Administrator</small>
+        </div>
+      </div>
+    </div>
+  }
+
+</aside>
+
+@if (mobileOpen) {
+  <div class="sidebar-backdrop" (click)="backdropClick.emit()"></div>
+}
